@@ -1,25 +1,34 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 25.0.1705.4
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discoteque", "Discoteque.csproj", "{8EA4AC6A-8333-4EC3-97C8-104D614072FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discoteque.API", "Discoteque.API\Discoteque.API.csproj", "{6965BBB8-065D-48E4-BF58-861C0A5277D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discoteque.Business", "Discoteque.Business\Discoteque.Business.csproj", "{CC791DE7-749B-4231-9A72-24F973E74B93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discoteque.Data", "Discoteque.Data\Discoteque.Data.csproj", "{76D5421C-AA28-4129-9DCA-936FBB2003C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8EA4AC6A-8333-4EC3-97C8-104D614072FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8EA4AC6A-8333-4EC3-97C8-104D614072FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8EA4AC6A-8333-4EC3-97C8-104D614072FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8EA4AC6A-8333-4EC3-97C8-104D614072FF}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {7E3858FD-34AE-405C-B900-54E7BD519A61}
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6965BBB8-065D-48E4-BF58-861C0A5277D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6965BBB8-065D-48E4-BF58-861C0A5277D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6965BBB8-065D-48E4-BF58-861C0A5277D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6965BBB8-065D-48E4-BF58-861C0A5277D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC791DE7-749B-4231-9A72-24F973E74B93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC791DE7-749B-4231-9A72-24F973E74B93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC791DE7-749B-4231-9A72-24F973E74B93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC791DE7-749B-4231-9A72-24F973E74B93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76D5421C-AA28-4129-9DCA-936FBB2003C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76D5421C-AA28-4129-9DCA-936FBB2003C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76D5421C-AA28-4129-9DCA-936FBB2003C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76D5421C-AA28-4129-9DCA-936FBB2003C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
