@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Discoteque.Business.IServices;
+using Discoteque.Data.Models;
 
 namespace Discoteque.API.Controllers
 {
@@ -12,26 +13,35 @@ namespace Discoteque.API.Controllers
     [ApiController]
     public class ArtistsController : ControllerBase
     {
-        private readonly IArtistService _artistService;
+        private readonly IArtistsService _artistsService;
 
-        public ArtistsController(IArtistService artistService)
+        public ArtistsController(IArtistsService artistsService)
         {
-            _artistService = artistService;
+            _artistsService = artistsService;
         }
 
         [HttpGet]
         [Route("GetAllArtistsAsync")]
         public async Task<IActionResult> GetAllArtistsAsync()
         {
-            var artists = await _artistService.GetArtistsAsync();
+            var artists = await _artistsService.GetArtistsAsync();
             return Ok(artists);
         }
 
 
-        // TODO: IMplementame correctamnete
-        /* tarea 3
-            Implementar un nuevo endpoint donde se cree un usuario utilizando
-            _artistsService.CreateArtist
-        */
+        [HttpPost]
+        [Route("CreateArtistAsync")]
+        public async Task<IActionResult> CreateArtistAsync(Artist artist)
+        {
+            var result = await _artistsService.CreateArtist(artist);
+            return Ok(result);
+        }
+
+        [HttpPatch]
+        [Route("UpdateArtistAsync")]
+        public async Task<IActionResult> UpdateArtistAsync(Artist artist)
+        {
+            return Ok();
+        }
     }
 }

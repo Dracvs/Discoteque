@@ -33,9 +33,12 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/Discoteque.sln"
+                "${workspaceFolder}/Discoteque.API/Discoteque.API.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
             ],
-            "problemMatcher": "$msCompile"
+            "problemMatcher": "$msCompile",
+            "options": { "cwd": "${workspaceFolder}/Discoteque.API/" }
         }
     ]
 }
