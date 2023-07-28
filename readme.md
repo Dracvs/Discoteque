@@ -540,3 +540,18 @@ using (var scope = app.Services.CreateScope())
     });
 }
 ```
+
+```shell
+# bash terminal
+root@home: dotnet new classlib -o Discoteque.Tests
+root@home: dotnet sln add Discoteque.Tests/
+root@home: dotnet add Discoteque.Tests reference Discoteque.Business/Discoteque.Business.csproj
+
+# NuGet Library inclusion
+root@home: dotnet add package Microsoft.NET.Test.Sdk --version 17.6.3
+root@home: dotnet add package MSTest.TestAdapter --version 3.1.1
+root@home: dotnet add package MSTest.TestFramework --version 3.1.1
+root@home: dotnet add package Coverlet.collector --version 6.0.0
+root@home: dotnet add package Moq --version 4.18.4
+
+```

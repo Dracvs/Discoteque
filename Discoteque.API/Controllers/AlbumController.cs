@@ -1,6 +1,6 @@
 using System.Data.SqlTypes;
+using Discoteque.Business.IServices;
 using Discoteque.Data.Models;
-using Discoteque.Data.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Discoteque.API.Controllers;

@@ -14,6 +14,11 @@ public  class Album : BaseEntity<int>
     /// Year the albums was published
     /// </summary>
     public int Year { get; set; }
+
+    /// <summary>
+    /// The MRSP of the album
+    /// </summary>
+    public double Cost{ get; set; } = 50_000;
     
     /// <summary>
     /// The <see cref="Genres" /> the album belongs to 
@@ -24,7 +29,7 @@ public  class Album : BaseEntity<int>
     /// The <see cref="Artist"/> id this Album belongs to
     /// </summary>
     /// <value></value>
-    [ForeignKey("Id")]
+    [ForeignKey("Artist")]
     public int ArtistId { get; set; }
 
     /// <summary>
