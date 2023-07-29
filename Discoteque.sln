@@ -1,5 +1,5 @@
 ﻿
-		HideSolutionNode = FALSE
+		HideSolutionNode = TRUE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{6965BBB8-065D-48E4-BF58-861C0A5277D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
