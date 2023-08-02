@@ -15,7 +15,7 @@ public class ArtistsService : IArtistsService
         _unitOfWork = unitofWork;
     }
 
-    public async Task<ArtistMessage> CreateArtist(Artist artist)
+    public async Task<BaseMessage<Artist>> CreateArtist(Artist artist)
     {
         var newArtist = new Artist{
             Name = artist.Name,
@@ -59,22 +59,22 @@ public class ArtistsService : IArtistsService
 
     }
 
-    private static ArtistMessage BuildResponse(HttpStatusCode statusCode, string message)
+    private static BaseMessage<Artist> BuildResponse(HttpStatusCode statusCode, string message)
     {
-        return new ArtistMessage{
+        return new BaseMessage<Artist>{
             Message = message,
             TotalElements = 0,
             StatusCode = statusCode                
         }; 
     }
     
-    private static ArtistMessage BuildResponse(HttpStatusCode statusCode, string message, List<Artist> artist)
+    private static BaseMessage<Artist> BuildResponse(HttpStatusCode statusCode, string message, List<Artist> artist)
     {
-        return new ArtistMessage{
+        return new BaseMessage<Artist>{
             Message = message,
             TotalElements = artist.Count,
             StatusCode = statusCode,
-            Artists = artist                
+            ResponseElements = artist                
         }; 
     }
 }

@@ -1,10 +1,15 @@
 using System.Net;
+using Discoteque.Data.Models;
+
 namespace Discoteque.Data.Dto;
-public class BaseMessage
+
+public class BaseMessage<T> 
+where T  : class
 {
-    public string Message { get; set;} = "";
-    public HttpStatusCode StatusCode { get; set;}
-    public int TotalElements {get; set; }
+    public string Message {get;set; } = "";
+    public HttpStatusCode StatusCode {get;set; }
+    public int TotalElements {get; set;} = 0;   
+    public List<T> ResponseElements {get; set;} = new List<T>();
 }
 
 public static class BaseMessageStatus

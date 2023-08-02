@@ -11,9 +11,9 @@ namespace Discoteque.Tests;
 [TestClass]
 public class AlbumTests
 {
-    private Mock<IRepository<int, Album>> _albumRepository;
-    private Mock<IRepository<int, Artist>> _artistRepository;
-    private Mock<IUnitOfWork> _unitOfWork;
+    private readonly Mock<IRepository<int, Album>> _albumRepository;
+    private readonly Mock<IRepository<int, Artist>> _artistRepository;
+    private readonly Mock<IUnitOfWork> _unitOfWork;
     private readonly  IAlbumService _albumServices;
 
     public AlbumTests()
@@ -23,12 +23,6 @@ public class AlbumTests
         _unitOfWork = new Mock<IUnitOfWork>();
         _albumServices = new AlbumService(_unitOfWork.Object);
     }
-
-    // [TestInitialize]
-    // public void TestStartup()
-    // {
-        
-    // }
 
     [TestMethod]
     public async Task IsAlbumCreatedCorrectly()
@@ -45,11 +39,10 @@ public class AlbumTests
         var artist = new Artist();
 
         _artistRepository.Setup(m => m.FindAsync(It.IsAny<int>())).ReturnsAsync(artist);
-        // _artistRepository.Setup(m => m.AddAsync(It.IsAny<Artist>())).Returns(It.IsAny<Album>);
         _albumRepository.Setup(m => m.AddAsync(It.IsAny<Album>())).Returns(Task.FromResult(It.IsAny<Album>));
+
         _unitOfWork.Setup(m => m.AlbumRepository).Returns(_albumRepository.Object);
         _unitOfWork.Setup(m => m.ArtistRepository).Returns(_artistRepository.Object);
-
 
         // Act
         var newAlbum = await _albumServices.CreateAlbum(album);

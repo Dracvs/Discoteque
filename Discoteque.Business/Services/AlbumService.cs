@@ -1,10 +1,9 @@
+using Discoteque.Business.IServices;
+using Discoteque.Business.Utils;
 using Discoteque.Data;
 using Discoteque.Data.Models;
 using Discoteque.Data.Dto;
 using System.Net;
-using System.Text.RegularExpressions;
-using Discoteque.Business.IServices;
-
 namespace Discoteque.Business.Services;
 
 /// <summary>
@@ -24,7 +23,7 @@ public class AlbumService : IAlbumService
     /// </summary>
     /// <param name="album">A new album entity</param>
     /// <returns>The created album with an Id assigned</returns>
-    public async Task<AlbumMessage> CreateAlbum(Album album)
+    public async Task<BaseMessage<Album>> CreateAlbum(Album album)
     {
         var newAlbum = new Album{
             Name = album.Name,
@@ -37,9 +36,9 @@ public class AlbumService : IAlbumService
         try
         {
             var artist = await _unitOfWork.ArtistRepository.FindAsync(album.ArtistId);
-            if(artist == null || album.Cost < 0 || album.Year < 1905 || album.Year > 2023 || AreForbiddenWordsContained(album.Name))
+            if(artist == null || album.Cost < 0 || album.Year < 1905 || album.Year > 2023 || Utilities.AreForbiddenWordsContained(album.Name))
             {
-                return BuildResponse(HttpStatusCode.BadRequest, BaseMessageStatus.BAD_REQUEST_400);
+                return Utilities.BuildResponse(HttpStatusCode.BadRequest, BaseMessageStatus.BAD_REQUEST_400, new List<Album>());
             }
             
             await _unitOfWork.AlbumRepository.AddAsync(newAlbum);
@@ -47,10 +46,10 @@ public class AlbumService : IAlbumService
         }
         catch (Exception ex)
         {
-            return BuildResponse(HttpStatusCode.InternalServerError, BaseMessageStatus.INTERNAL_SERVER_ERROR_500);
+            return Utilities.BuildResponse(HttpStatusCode.InternalServerError, $"{BaseMessageStatus.INTERNAL_SERVER_ERROR_500} | {ex.Message}", new List<Album>());
         }
 
-        return BuildResponse(HttpStatusCode.OK, BaseMessageStatus.OK_200, new(){newAlbum});
+        return Utilities.BuildResponse(HttpStatusCode.OK, BaseMessageStatus.OK_200, new List<Album>(){newAlbum});
     }
 
     /// <summary>
@@ -143,32 +142,5 @@ public class AlbumService : IAlbumService
         await _unitOfWork.AlbumRepository.Update(album);
         await _unitOfWork.SaveAsync();
         return album;
-    }
-
-
-    private static AlbumMessage BuildResponse(HttpStatusCode statusCode, string message)
-    {
-        return new AlbumMessage{
-            Message = message,
-            TotalElements = 0,
-            StatusCode = statusCode                
-        }; 
-    }
-    
-    private static AlbumMessage BuildResponse(HttpStatusCode statusCode, string message, List<Album> album)
-    {
-        return new AlbumMessage{
-            Message = message,
-            TotalElements = album.Count,
-            StatusCode = statusCode,
-            Albums = album                
-        }; 
-    }
-
-    private static bool AreForbiddenWordsContained(string name)
-    {
-        var prohibitedWords = new List<string>(){"Revolución", "Poder","Amor","Guerra"};
-        return prohibitedWords.Any(keyword => Regex.IsMatch(name, Regex.Escape(keyword), RegexOptions.IgnoreCase));
-
     }
 }
