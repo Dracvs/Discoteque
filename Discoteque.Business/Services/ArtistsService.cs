@@ -1,4 +1,5 @@
 using Discoteque.Business.IServices;
+using Discoteque.Business.Utils;
 using Discoteque.Data;
 using Discoteque.Data.Models;
 using Discoteque.Data.Dto;
@@ -27,7 +28,7 @@ public class ArtistsService : IArtistsService
         {
             if(artist.Name.Length > 100)
             {
-                return BuildResponse(HttpStatusCode.BadRequest, BaseMessageStatus.BAD_REQUEST_400);
+                return Utilities.BuildResponse(HttpStatusCode.BadRequest, BaseMessageStatus.BAD_REQUEST_400, new List<Artist>());
             }
 
             await _unitOfWork.ArtistRepository.AddAsync(artist);
@@ -35,10 +36,10 @@ public class ArtistsService : IArtistsService
         }
         catch (Exception)
         {
-            return BuildResponse(HttpStatusCode.BadRequest, BaseMessageStatus.INTERNAL_SERVER_ERROR_500);
+            return Utilities.BuildResponse(HttpStatusCode.BadRequest, BaseMessageStatus.INTERNAL_SERVER_ERROR_500, new List<Artist>());
         }
 
-        return BuildResponse(HttpStatusCode.OK, BaseMessageStatus.OK_200, new(){artist});
+        return Utilities.BuildResponse(HttpStatusCode.OK, BaseMessageStatus.OK_200, new List<Artist>(){artist});
     }
 
     public async Task<IEnumerable<Artist>> GetArtistsAsync()
@@ -56,25 +57,5 @@ public class ArtistsService : IArtistsService
         await _unitOfWork.ArtistRepository.Update(artist);
         await _unitOfWork.SaveAsync();
         return artist;
-
-    }
-
-    private static BaseMessage<Artist> BuildResponse(HttpStatusCode statusCode, string message)
-    {
-        return new BaseMessage<Artist>{
-            Message = message,
-            TotalElements = 0,
-            StatusCode = statusCode                
-        }; 
-    }
-    
-    private static BaseMessage<Artist> BuildResponse(HttpStatusCode statusCode, string message, List<Artist> artist)
-    {
-        return new BaseMessage<Artist>{
-            Message = message,
-            TotalElements = artist.Count,
-            StatusCode = statusCode,
-            ResponseElements = artist                
-        }; 
     }
 }

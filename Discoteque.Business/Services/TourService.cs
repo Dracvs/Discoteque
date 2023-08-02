@@ -1,4 +1,5 @@
 using Discoteque.Business.IServices;
+using Discoteque.Business.Utils;
 using Discoteque.Data;
 using Discoteque.Data.Models;
 using Discoteque.Data.Dto;
@@ -16,14 +17,14 @@ public class TourService : ITourService
         _unitOfWork = unitOfWork;
     }
     
-    public async Task<TourMessage> CreateTour(Tour tour)
+    public async Task<BaseMessage<Tour>> CreateTour(Tour tour)
     {
         try
         {
             var artist = await _unitOfWork.ArtistRepository.FindAsync(tour.ArtistId);
             if (tour.TourDate.Year <= 2021 || artist == null)
             {
-                return BuildResponse(HttpStatusCode.NotFound, BaseMessageStatus.BAD_REQUEST_400);
+                return Utilities.BuildResponse(HttpStatusCode.NotFound, BaseMessageStatus.BAD_REQUEST_400, new List<Tour>());
             }
             
             await _unitOfWork.TourRepository.AddAsync(tour);
@@ -31,10 +32,10 @@ public class TourService : ITourService
         }
         catch (Exception)
         {
-            return BuildResponse(HttpStatusCode.InternalServerError, BaseMessageStatus.INTERNAL_SERVER_ERROR_500);
+            return Utilities.BuildResponse(HttpStatusCode.InternalServerError, BaseMessageStatus.INTERNAL_SERVER_ERROR_500, new List<Tour>());
         }
         
-        return BuildResponse(HttpStatusCode.OK, BaseMessageStatus.OK_200, new(){tour});
+        return Utilities.BuildResponse(HttpStatusCode.OK, BaseMessageStatus.OK_200, new List<Tour>(){tour});
     }
 
     public async Task<Tour> GetTourById(int id)
@@ -67,24 +68,5 @@ public class TourService : ITourService
         await _unitOfWork.TourRepository.Update(tour);
         await _unitOfWork.SaveAsync();
         return tour;
-    }
-
-    private static TourMessage BuildResponse(HttpStatusCode statusCode, string message)
-    {
-        return new TourMessage{
-            Message = message,
-            TotalElements = 0,
-            StatusCode = statusCode                
-        }; 
-    }
-    
-    private static TourMessage BuildResponse(HttpStatusCode statusCode, string message, List<Tour> tours)
-    {
-        return new TourMessage{
-            Message = message,
-            TotalElements = tours.Count,
-            StatusCode = statusCode,
-            Tours = tours                
-        }; 
     }
 }

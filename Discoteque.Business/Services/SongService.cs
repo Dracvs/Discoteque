@@ -1,5 +1,6 @@
 using System.Net;
 using Discoteque.Business.IServices;
+using Discoteque.Business.Utils;
 using Discoteque.Data;
 using Discoteque.Data.Models;
 using Discoteque.Data.Dto;
@@ -15,24 +16,24 @@ public class SongService : ISongService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<SongMessage> CreateSong(Song newSong)
+    public async Task<BaseMessage<Song>> CreateSong(Song newSong)
     {
         try
         {         
             var album = await _unitOfWork.AlbumRepository.FindAsync(newSong.AlbumId);
             if (album == null)
             {
-                return BuildResponse(HttpStatusCode.NotFound, BaseMessageStatus.ALBUM_NOT_FOUND);
+                return Utilities.BuildResponse(HttpStatusCode.NotFound, BaseMessageStatus.ALBUM_NOT_FOUND, new List<Song>());
             }
             await _unitOfWork.SongRepository.AddAsync(newSong);
             await _unitOfWork.SaveAsync();
         }
         catch (Exception ex)
         {
-            return BuildResponse(HttpStatusCode.InternalServerError, ex.Message);
+            return Utilities.BuildResponse(HttpStatusCode.InternalServerError, ex.Message, new List<Song>());
         } 
 
-        return BuildResponse(HttpStatusCode.OK, BaseMessageStatus.OK_200, new(){newSong});       
+        return Utilities.BuildResponse(HttpStatusCode.OK, BaseMessageStatus.OK_200, new List<Song>(){newSong});       
     }
 
     public async Task<Song> GetById(int id)
@@ -60,24 +61,5 @@ public class SongService : ISongService
         await _unitOfWork.SongRepository.Update(song);
         await _unitOfWork.SaveAsync();
         return song;
-    }
-
-    private static SongMessage BuildResponse(HttpStatusCode statusCode, string message)
-    {
-        return new SongMessage{
-            Message = message,
-            TotalElements = 0,
-            StatusCode = statusCode                
-        }; 
-    }
-    
-    private static SongMessage BuildResponse(HttpStatusCode statusCode, string message, List<Song> songs)
-    {
-        return new SongMessage{
-            Message = message,
-            TotalElements = songs.Count,
-            StatusCode = statusCode,
-            Songs = songs                
-        }; 
     }
 }

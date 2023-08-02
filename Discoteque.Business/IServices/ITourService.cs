@@ -11,7 +11,7 @@ public interface ITourService
     Task<IEnumerable<Tour>> GetToursByArtist(int ArtistId);
     Task<IEnumerable<Tour>> GetToursByYear(int year);
     Task<IEnumerable<Tour>> GetToursByCity(string city);
-    Task<TourMessage> CreateTour(Tour tour);
+    Task<BaseMessage<Tour>> CreateTour(Tour tour);
     Task<Tour> UpdateTour(Tour tour);
 
 }

@@ -10,6 +10,6 @@ public interface ISongService
     Task<IEnumerable<Song>> GetSongsByAlbum(int AlbumId);
     Task<IEnumerable<Song>> GetSongsByYear(int year);
     Task<Song> GetById(int id);
-    Task<SongMessage> CreateSong(Song Song);
+    Task<BaseMessage<Song>> CreateSong(Song Song);
     Task<Song> UpdateSong(Song song);
 }
