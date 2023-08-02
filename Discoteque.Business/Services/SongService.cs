@@ -36,6 +36,28 @@ public class SongService : ISongService
         return Utilities.BuildResponse(HttpStatusCode.OK, BaseMessageStatus.OK_200, new List<Song>(){newSong});       
     }
 
+    public async Task<BaseMessage<Song>> CreateSongsInBatch(List<Song> songs)
+    {
+        try
+        {
+            foreach (var item in songs)
+            {
+                var album = await _unitOfWork.AlbumRepository.FindAsync(item.AlbumId);
+                if(album != null)
+                {
+                    await _unitOfWork.SongRepository.AddAsync(item);
+                }
+            }
+
+            await _unitOfWork.SaveAsync();
+        }
+        catch (Exception ex)
+        {
+            return Utilities.BuildResponse(HttpStatusCode.InternalServerError, $"{BaseMessageStatus.INTERNAL_SERVER_ERROR_500} | {ex.Message}", new List<Song>());
+        }
+        return Utilities.BuildResponse(HttpStatusCode.OK, BaseMessageStatus.OK_200, songs);
+    }
+
     public async Task<Song> GetById(int id)
     {
         return await _unitOfWork.SongRepository.FindAsync(id);

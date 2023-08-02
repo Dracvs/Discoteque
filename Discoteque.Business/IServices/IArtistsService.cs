@@ -9,6 +9,7 @@ namespace Discoteque.Business.IServices
         Task<IEnumerable<Artist>> GetArtistsAsync();
         Task<Artist> GetById(int id);
         Task<BaseMessage<Artist>> CreateArtist(Artist artist);
+        Task<BaseMessage<Artist>> CreateArtistsInBatch(List<Artist> artists);
         Task<Artist> UpdateArtist(Artist artist);
     }
 }

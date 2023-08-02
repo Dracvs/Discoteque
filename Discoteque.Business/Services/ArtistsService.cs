@@ -42,6 +42,27 @@ public class ArtistsService : IArtistsService
         return Utilities.BuildResponse(HttpStatusCode.OK, BaseMessageStatus.OK_200, new List<Artist>(){artist});
     }
 
+    public async Task<BaseMessage<Artist>> CreateArtistsInBatch(List<Artist> artists)
+    {
+        try
+        {
+            foreach (var item in artists)
+            {
+                if(item.Name.Length <= 100)
+                {
+                    await _unitOfWork.ArtistRepository.AddAsync(item);
+                }
+            }
+            await _unitOfWork.SaveAsync();
+        }
+        catch (Exception ex)
+        {   
+            return Utilities.BuildResponse(HttpStatusCode.BadRequest, $"{BaseMessageStatus.INTERNAL_SERVER_ERROR_500} | {ex.Message}", new List<Artist>());
+        }
+        
+        return Utilities.BuildResponse(HttpStatusCode.OK, BaseMessageStatus.OK_200, artists);        
+    }
+
     public async Task<IEnumerable<Artist>> GetArtistsAsync()
     {
         return await _unitOfWork.ArtistRepository.GetAllAsync();

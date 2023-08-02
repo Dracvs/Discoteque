@@ -59,6 +59,14 @@ public class SongController : ControllerBase
         return newSong.StatusCode == HttpStatusCode.OK ? Ok(newSong) : StatusCode((int)newSong.StatusCode, newSong);
     }
 
+    [HttpPost]
+    [Route("CreateSongs")]
+    public async Task<IActionResult> CreateSongs(List<Song> songs)
+    {
+        var newSongs = await _songService.CreateSongsInBatch(songs);
+        return newSongs.StatusCode == HttpStatusCode.OK ? Ok(newSongs) : StatusCode((int)newSongs.StatusCode, newSongs);
+    }
+
     [HttpPatch]
     [Route("UpdateSong")]
     public async Task<IActionResult> UpdateSong(Song song)
