@@ -18,17 +18,11 @@ public class ArtistsService : IArtistsService
 
     public async Task<BaseMessage<Artist>> CreateArtist(Artist artist)
     {
-        var newArtist = new Artist{
-            Name = artist.Name,
-            IsOnTour = artist.IsOnTour,
-            Label = artist.Label
-        };
-        
         try
         {
             if(artist.Name.Length > 100)
             {
-                return Utilities.BuildResponse(HttpStatusCode.BadRequest, BaseMessageStatus.BAD_REQUEST_400, new List<Artist>());
+                return Utilities.BuildResponse<Artist>(HttpStatusCode.BadRequest, BaseMessageStatus.BAD_REQUEST_400);
             }
 
             await _unitOfWork.ArtistRepository.AddAsync(artist);
@@ -36,7 +30,7 @@ public class ArtistsService : IArtistsService
         }
         catch (Exception)
         {
-            return Utilities.BuildResponse(HttpStatusCode.BadRequest, BaseMessageStatus.INTERNAL_SERVER_ERROR_500, new List<Artist>());
+            return Utilities.BuildResponse<Artist>(HttpStatusCode.BadRequest, BaseMessageStatus.INTERNAL_SERVER_ERROR_500);
         }
 
         return Utilities.BuildResponse(HttpStatusCode.OK, BaseMessageStatus.OK_200, new List<Artist>(){artist});
@@ -57,7 +51,7 @@ public class ArtistsService : IArtistsService
         }
         catch (Exception ex)
         {   
-            return Utilities.BuildResponse(HttpStatusCode.BadRequest, $"{BaseMessageStatus.INTERNAL_SERVER_ERROR_500} | {ex.Message}", new List<Artist>());
+            return Utilities.BuildResponse<Artist>(HttpStatusCode.BadRequest, $"{BaseMessageStatus.INTERNAL_SERVER_ERROR_500} | {ex.Message}");
         }
         
         return Utilities.BuildResponse(HttpStatusCode.OK, BaseMessageStatus.OK_200, artists);        

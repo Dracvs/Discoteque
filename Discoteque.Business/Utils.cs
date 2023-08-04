@@ -23,46 +23,14 @@ public static class Utilities
     #endregion
 
     #region BaseMessage Responses
-    public static BaseMessage<Album> BuildResponse(HttpStatusCode statusCode, string Message, List<Album> elements)
+    public static BaseMessage<T> BuildResponse<T>(HttpStatusCode statusCode, string message, List<T>? elements = null)
+    where T : class    
     {
-        return new BaseMessage<Album>
-        {
-            Message = Message,
-            TotalElements = elements.Count,
+        return new BaseMessage<T>(){
             StatusCode = statusCode,
-            ResponseElements = elements
-        };
-    }
-
-    public static BaseMessage<Artist> BuildResponse(HttpStatusCode statusCode, string Message, List<Artist> elements)
-    {
-        return new BaseMessage<Artist>
-        {
-            Message = Message,
-            TotalElements = elements.Count,
-            StatusCode = statusCode,
-            ResponseElements = elements
-        };
-    }
-    public static BaseMessage<Song> BuildResponse(HttpStatusCode statusCode, string Message, List<Song> elements)
-    {
-        return new BaseMessage<Song>
-        {
-            Message = Message,
-            TotalElements = elements.Count,
-            StatusCode = statusCode,
-            ResponseElements = elements
-        };
-    }
-
-    public static BaseMessage<Tour> BuildResponse(HttpStatusCode statusCode, string Message, List<Tour> elements)
-    {
-        return new BaseMessage<Tour>
-        {
-            Message = Message,
-            TotalElements = elements.Count,
-            StatusCode = statusCode,
-            ResponseElements = elements
+            Message = message,
+            TotalElements = (elements != null && elements.Any()) ? elements.Count : 0,
+            ResponseElements = elements ?? new List<T>()
         };
     }
     #endregion

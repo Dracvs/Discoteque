@@ -24,7 +24,7 @@ public class TourService : ITourService
             var artist = await _unitOfWork.ArtistRepository.FindAsync(tour.ArtistId);
             if (tour.TourDate.Year <= 2021 || artist == null)
             {
-                return Utilities.BuildResponse(HttpStatusCode.NotFound, BaseMessageStatus.BAD_REQUEST_400, new List<Tour>());
+                return Utilities.BuildResponse<Tour>(HttpStatusCode.NotFound, BaseMessageStatus.BAD_REQUEST_400);
             }
             
             await _unitOfWork.TourRepository.AddAsync(tour);
@@ -32,7 +32,7 @@ public class TourService : ITourService
         }
         catch (Exception)
         {
-            return Utilities.BuildResponse(HttpStatusCode.InternalServerError, BaseMessageStatus.INTERNAL_SERVER_ERROR_500, new List<Tour>());
+            return Utilities.BuildResponse<Tour>(HttpStatusCode.InternalServerError, BaseMessageStatus.INTERNAL_SERVER_ERROR_500);
         }
         
         return Utilities.BuildResponse(HttpStatusCode.OK, BaseMessageStatus.OK_200, new List<Tour>(){tour});

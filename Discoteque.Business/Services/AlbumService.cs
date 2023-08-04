@@ -38,7 +38,7 @@ public class AlbumService : IAlbumService
             var artist = await _unitOfWork.ArtistRepository.FindAsync(album.ArtistId);
             if(artist == null || album.Cost < 0 || album.Year < 1905 || album.Year > 2023 || Utilities.AreForbiddenWordsContained(album.Name))
             {
-                return Utilities.BuildResponse(HttpStatusCode.BadRequest, BaseMessageStatus.BAD_REQUEST_400, new List<Album>());
+                return Utilities.BuildResponse<Album>(HttpStatusCode.BadRequest, BaseMessageStatus.BAD_REQUEST_400);
             }
             
             await _unitOfWork.AlbumRepository.AddAsync(newAlbum);
@@ -46,7 +46,7 @@ public class AlbumService : IAlbumService
         }
         catch (Exception ex)
         {
-            return Utilities.BuildResponse(HttpStatusCode.InternalServerError, $"{BaseMessageStatus.INTERNAL_SERVER_ERROR_500} | {ex.Message}", new List<Album>());
+            return Utilities.BuildResponse<Album>(HttpStatusCode.InternalServerError, $"{BaseMessageStatus.INTERNAL_SERVER_ERROR_500} | {ex.Message}");
         }
 
         return Utilities.BuildResponse(HttpStatusCode.OK, BaseMessageStatus.OK_200, new List<Album>(){newAlbum});

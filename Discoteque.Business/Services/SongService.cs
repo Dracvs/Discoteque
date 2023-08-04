@@ -23,14 +23,14 @@ public class SongService : ISongService
             var album = await _unitOfWork.AlbumRepository.FindAsync(newSong.AlbumId);
             if (album == null)
             {
-                return Utilities.BuildResponse(HttpStatusCode.NotFound, BaseMessageStatus.ALBUM_NOT_FOUND, new List<Song>());
+                return Utilities.BuildResponse<Song>(HttpStatusCode.NotFound, BaseMessageStatus.ALBUM_NOT_FOUND);
             }
             await _unitOfWork.SongRepository.AddAsync(newSong);
             await _unitOfWork.SaveAsync();
         }
         catch (Exception ex)
         {
-            return Utilities.BuildResponse(HttpStatusCode.InternalServerError, ex.Message, new List<Song>());
+            return Utilities.BuildResponse<Song>(HttpStatusCode.InternalServerError, ex.Message);
         } 
 
         return Utilities.BuildResponse(HttpStatusCode.OK, BaseMessageStatus.OK_200, new List<Song>(){newSong});       
@@ -53,7 +53,7 @@ public class SongService : ISongService
         }
         catch (Exception ex)
         {
-            return Utilities.BuildResponse(HttpStatusCode.InternalServerError, $"{BaseMessageStatus.INTERNAL_SERVER_ERROR_500} | {ex.Message}", new List<Song>());
+            return Utilities.BuildResponse<Song>(HttpStatusCode.InternalServerError, $"{BaseMessageStatus.INTERNAL_SERVER_ERROR_500} | {ex.Message}");
         }
         return Utilities.BuildResponse(HttpStatusCode.OK, BaseMessageStatus.OK_200, songs);
     }
