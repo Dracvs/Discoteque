@@ -1,5 +1,7 @@
 using Discoteque.Data.Models;
-namespace Discoteque.Data.Services;
+using Discoteque.Data.Dto;
+
+namespace Discoteque.Business.IServices;
 
 public interface IAlbumService
 {
@@ -51,7 +53,7 @@ public interface IAlbumService
     /// </summary>
     /// <param name="album">A new album entity</param>
     /// <returns>The created album with an Id assigned</returns>
-    Task<Album> CreateAlbum(Album album);
+    Task<BaseMessage<Album>> CreateAlbum(Album album);
     
     /// <summary>
     /// Updates the <see cref="Album"/> entity in EF DB

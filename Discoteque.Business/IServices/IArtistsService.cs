@@ -1,5 +1,6 @@
 using System;
 using Discoteque.Data.Models;
+using Discoteque.Data.Dto;
 
 namespace Discoteque.Business.IServices
 {
@@ -7,7 +8,8 @@ namespace Discoteque.Business.IServices
     {
         Task<IEnumerable<Artist>> GetArtistsAsync();
         Task<Artist> GetById(int id);
-        Task<Artist> CreateArtist(Artist artist);
+        Task<BaseMessage<Artist>> CreateArtist(Artist artist);
+        Task<BaseMessage<Artist>> CreateArtistsInBatch(List<Artist> artists);
         Task<Artist> UpdateArtist(Artist artist);
     }
 }

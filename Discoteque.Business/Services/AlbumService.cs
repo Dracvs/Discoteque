@@ -1,8 +1,9 @@
-using System.Security.Cryptography.X509Certificates;
+using Discoteque.Business.IServices;
+using Discoteque.Business.Utils;
 using Discoteque.Data;
 using Discoteque.Data.Models;
-using Discoteque.Data.Services;
-
+using Discoteque.Data.Dto;
+using System.Net;
 namespace Discoteque.Business.Services;
 
 /// <summary>
@@ -10,7 +11,7 @@ namespace Discoteque.Business.Services;
 /// </summary>
 public class AlbumService : IAlbumService
 {
-    private IUnitOfWork _unitOfWork;
+    private readonly IUnitOfWork _unitOfWork;
 
     public AlbumService(IUnitOfWork unitOfWork)
     {
@@ -22,18 +23,33 @@ public class AlbumService : IAlbumService
     /// </summary>
     /// <param name="album">A new album entity</param>
     /// <returns>The created album with an Id assigned</returns>
-    public async Task<Album> CreateAlbum(Album album)
+    public async Task<BaseMessage<Album>> CreateAlbum(Album album)
     {
         var newAlbum = new Album{
             Name = album.Name,
             ArtistId = album.ArtistId,
             Genre = album.Genre,
-            Year = album.Year
+            Year = album.Year,
+            Cost = album.Cost,
         };
-        
-        await _unitOfWork.AlbumRepository.AddAsync(newAlbum);
-        await _unitOfWork.SaveAsync();
-        return newAlbum;
+
+        try
+        {
+            var artist = await _unitOfWork.ArtistRepository.FindAsync(album.ArtistId);
+            if(artist == null || album.Cost < 0 || album.Year < 1905 || album.Year > 2023 || Utilities.AreForbiddenWordsContained(album.Name))
+            {
+                return Utilities.BuildResponse<Album>(HttpStatusCode.BadRequest, BaseMessageStatus.BAD_REQUEST_400);
+            }
+            
+            await _unitOfWork.AlbumRepository.AddAsync(newAlbum);
+            await _unitOfWork.SaveAsync();    
+        }
+        catch (Exception ex)
+        {
+            return Utilities.BuildResponse<Album>(HttpStatusCode.InternalServerError, $"{BaseMessageStatus.INTERNAL_SERVER_ERROR_500} | {ex.Message}");
+        }
+
+        return Utilities.BuildResponse(HttpStatusCode.OK, BaseMessageStatus.OK_200, new List<Album>(){newAlbum});
     }
 
     /// <summary>
@@ -64,7 +80,7 @@ public class AlbumService : IAlbumService
     public async Task<IEnumerable<Album>> GetAlbumsByArtist(string artist)
     {
         IEnumerable<Album> albums;        
-        albums = await _unitOfWork.AlbumRepository.GetAllAsync(x => x.Artist.Name.Equals(artist), x => x.OrderBy(x => x.Id), new Artist().GetType().Name);
+        albums = await _unitOfWork.AlbumRepository.GetAllAsync(x => x.Artist.Name.ToLower().Equals(artist.ToLower()), x => x.OrderBy(x => x.Id), new Artist().GetType().Name);
         return albums;
     }
 

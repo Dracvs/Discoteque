@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Discoteque.Business.IServices;
 using Discoteque.Data.Models;
+using System.Net;
 
 namespace Discoteque.API.Controllers
 {
@@ -35,6 +36,14 @@ namespace Discoteque.API.Controllers
         {
             var result = await _artistsService.CreateArtist(artist);
             return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("CreateArtists")]
+        public async Task<IActionResult> CreateArtistsAsync(List<Artist> artists)
+        {
+            var result = await _artistsService.CreateArtistsInBatch(artists);
+            return result.StatusCode == HttpStatusCode.OK ? Ok(result) : StatusCode((int)result.StatusCode, result);
         }
 
         [HttpPatch]
