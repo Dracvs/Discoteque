@@ -552,6 +552,6 @@ root@home: dotnet add package Microsoft.NET.Test.Sdk --version 17.6.3
 root@home: dotnet add package MSTest.TestAdapter --version 3.1.1
 root@home: dotnet add package MSTest.TestFramework --version 3.1.1
 root@home: dotnet add package Coverlet.collector --version 6.0.0
-root@home: dotnet add package Moq --version 4.18.4
-
+root@home: dotnet add package NSubstitute
+root@home: dotnet add package NSubstitute.Analyzers.CSharp
 ```

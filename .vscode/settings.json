@@ -25,5 +25,6 @@
         "titleBar.inactiveForeground": "#e7e7e799"
     },
     "peacock.color": "#dd0531",
-    "dotnet.defaultSolution": "Discoteque.sln"
+    "dotnet.defaultSolution": "Discoteque.sln",
+    "dotnet-test-explorer.testProjectPath": "**/*Tests.@(csproj|vbproj|fsproj)"
 }
