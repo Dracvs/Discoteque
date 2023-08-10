@@ -1,0 +1,440 @@
+{
+	"info": {
+		"_postman_id": "a5dd2edf-049e-47d0-bdc8-4aa0db4ed9e7",
+		"name": "The Discoteque",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4391919"
+	},
+	"item": [
+		{
+			"name": "Albums",
+			"item": [
+				{
+					"name": "Get Abums",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:5044/api/album/getalbums?areReferencesLoaded=false",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5044",
+							"path": [
+								"api",
+								"album",
+								"getalbums"
+							],
+							"query": [
+								{
+									"key": "areReferencesLoaded",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Albums By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5044/api/album/getalbumbyid?id=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5044",
+							"path": [
+								"api",
+								"album",
+								"getalbumbyid"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Albums by year",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5044/api/album/getalbumsbyyear?year=2020",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5044",
+							"path": [
+								"api",
+								"album",
+								"getalbumsbyyear"
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "2020"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Albums by Range",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5044/api/album/getalbumsbyyearrange?initialyear=2000&yearrange=2010",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5044",
+							"path": [
+								"api",
+								"album",
+								"getalbumsbyyearrange"
+							],
+							"query": [
+								{
+									"key": "initialyear",
+									"value": "2000"
+								},
+								{
+									"key": "yearrange",
+									"value": "2010"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get albums by range",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5044/api/album/getalbumsbygenre?genre=salsa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5044",
+							"path": [
+								"api",
+								"album",
+								"getalbumsbygenre"
+							],
+							"query": [
+								{
+									"key": "genre",
+									"value": "salsa"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Albums By artist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5044/api/album/getalbumsbyartist?artist=WomenWhoCode",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5044",
+							"path": [
+								"api",
+								"album",
+								"getalbumsbyartist"
+							],
+							"query": [
+								{
+									"key": "artist",
+									"value": "WomenWhoCode"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Album",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"The Power of one \",\n  \"year\": 2022,\n  \"genre\": 3,\n  \"artistId\": 14,\n  \"cost\" : 399,\n  \"Country\" : \"Colombia\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5044/api/album/createalbum",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5044",
+							"path": [
+								"api",
+								"album",
+								"createalbum"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Songs",
+			"item": [
+				{
+					"name": "Get Songs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5044/api/song/getsongs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5044",
+							"path": [
+								"api",
+								"song",
+								"getsongs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tours",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5044/api/tour/gettours",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5044",
+							"path": [
+								"api",
+								"tour",
+								"gettours"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create songs",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"Name\":\"El poder de dos\",\n        \"Length\":210,\n        \"AlbumId\": 1\n    },\n    {\n        \"Name\":\"Una nueva oportunidad\",\n        \"Length\":210,\n        \"AlbumId\": 1\n    },\n    {\n        \"Name\":\"El universo al reves\",\n        \"Length\":210,\n        \"AlbumId\": 2\n    },\n    {\n        \"Name\":\"La vida es un ratico\",\n        \"Length\":210,\n        \"AlbumId\": 2\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/song/createsongs",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"song",
+								"createsongs"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tour",
+			"item": [
+				{
+					"name": "Create a Tour",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\" : \"Juanes & Morat\",\n    \"City\" : \"Medellin\",\n    \"TourDate\" : \"2020-04-22\",\n    \"IsSoldOut\" : true,\n    \"ArtistId\" : 9\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5044/api/tour/createtour",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5044",
+							"path": [
+								"api",
+								"tour",
+								"createtour"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Artist",
+			"item": [
+				{
+					"name": "Creat Artist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Metallica\",\n    \"isontour\": true,\n    \"label\": \"EMI Music\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5044/api/artists/CreateArtistAsync",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5044",
+							"path": [
+								"api",
+								"artists",
+								"CreateArtistAsync"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Artis",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5044/api/Artists/GetAllArtistsAsync",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5044",
+							"path": [
+								"api",
+								"Artists",
+								"GetAllArtistsAsync"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Artists in batch",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"name\":\"Metallica\",\n        \"isontour\": true,\n        \"label\": \"EMI Music\"\n    },\n    {\n        \"name\":\"Opeth\",\n        \"isontour\": true,\n        \"label\": \"EMI Music\"\n    },\n    {\n        \"name\":\"Leprous\",\n        \"isontour\": true,\n        \"label\": \"EMI Music\"\n    },\n    {\n        \"name\":\"Hakeb\",\n        \"isontour\": true,\n        \"label\": \"EMI Music\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5044/api/artists/CreateArtists",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5044",
+							"path": [
+								"api",
+								"artists",
+								"CreateArtists"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://localhost:5044/api",
+			"type": "string"
+		}
+	]
+}
