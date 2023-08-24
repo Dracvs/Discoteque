@@ -71,20 +71,20 @@ async void PopulateDb(WebApplication app)
             Id = 2,
             Name = "Juanes",
             Label = "Universal Music Group",
-            IsOnTour = true
+            IsOnTour = false
         });
 
         await artistService.CreateArtist(new Discoteque.Data.Models.Artist{
             Id = 3,
             Name = "Shakira",
             Label = "Sony Music",
-            IsOnTour = true
+            IsOnTour = false
         });
         await artistService.CreateArtist(new Discoteque.Data.Models.Artist{
             Id = 4,
             Name = "Joe Arroyo",
             Label = "AVAYA",
-            IsOnTour = true
+            IsOnTour = false
         });
         await artistService.CreateArtist(new Discoteque.Data.Models.Artist{
             Id = 5,
@@ -102,7 +102,7 @@ async void PopulateDb(WebApplication app)
             Id = 7,
             Name = "Fonseca",
             Label = "SONY BMG",
-            IsOnTour = true
+            IsOnTour = false
         });
         await artistService.CreateArtist(new Discoteque.Data.Models.Artist{
             Id = 8,

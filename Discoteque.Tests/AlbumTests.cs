@@ -93,4 +93,41 @@ public class AlbumTests
         // assert
         Assert.IsTrue(newAlbum.Message.Contains(ALBUM_SERVICE_EXCEPTION));
     }
+
+    [TestMethod]
+    public async Task FindCorrectAlbumByArtist()
+    {   
+        // Arrange
+        string artist = "";
+
+        _albumRepository.GetAllAsync(
+            x => x.Artist.Name.ToLower().Equals(artist.ToLower()), 
+            x => x.OrderBy(x => x.Id), 
+            new Artist().GetType().Name)
+        .ReturnsForAnyArgs(Task.FromResult<IEnumerable<Album>>(new List<Album>(){_correctAlbum}));
+
+        _unitOfWork.AlbumRepository.Returns(_albumRepository);
+
+        // Act
+        var newAlbum = await _albumService.GetAlbumsByArtist("");
+
+        // Assert
+        Assert.IsTrue(newAlbum.Count() > 0);
+
+    }
+
+    [TestMethod]
+    public async Task FindCorrectAlbumSansReferences()
+    {
+        // Arrange
+        _albumRepository.GetAllAsync().Returns(Task.FromResult<IEnumerable<Album>>(new List<Album>(){_correctAlbum}));
+        _unitOfWork.AlbumRepository.Returns(_albumRepository);
+
+        // Act
+        var newAlbum = await _albumService.GetAlbumsAsync(false);
+
+        // Assert
+        Assert.IsTrue(newAlbum.Any());
+
+    }
 }
