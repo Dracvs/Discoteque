@@ -10,7 +10,7 @@ public class DiscotequeContext : DbContext
         DbContextOptions<DiscotequeContext> options) 
         : base(options)
     {
-        
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
     }
 
     public DbSet<Artist> Artists { get; set; }

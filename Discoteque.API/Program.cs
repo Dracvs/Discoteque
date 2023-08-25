@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Discoteque.Data;
 using Discoteque.Business.IServices;
 using Discoteque.Business.Services;
+using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<DiscotequeContext>(
     opt => {
-        opt.UseInMemoryDatabase("Discoteque");
+        opt.UseNpgsql(builder.Configuration.GetConnectionString("DiscotequeDatabase"));
     }    
 );
 
@@ -26,7 +27,7 @@ builder.Services.AddScoped<ISongService, SongService>();
 builder.Services.AddScoped<ITourService, TourService>();
 
 var app = builder.Build();
-PopulateDb(app);
+// PopulateDb(app);
 
 
 // Configure the HTTP request pipeline.
@@ -121,8 +122,8 @@ async void PopulateDb(WebApplication app)
             Name = "J Balvin",
             Label = "SONY BMG",
             IsOnTour = true
-        });
-
+        }); 
+        
         // Albums
         #region Karol G
         await albumService.CreateAlbum(new Discoteque.Data.Models.Album{
